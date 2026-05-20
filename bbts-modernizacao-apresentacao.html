@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBTS - Modernização de Aplicação | IBM Client Engineering</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --ibm-blue: #0f62fe;
+            --ibm-blue-60: #0043ce;
+            --ibm-blue-70: #002d9c;
+            --ibm-gray-10: #f4f4f4;
+            --ibm-gray-20: #e0e0e0;
+            --ibm-gray-50: #8d8d8d;
+            --ibm-gray-70: #525252;
+            --ibm-gray-90: #262626;
+            --ibm-gray-100: #161616;
+            --ibm-white: #ffffff;
+            --bb-yellow: #ffdd00;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background-color: var(--ibm-gray-10);
+            color: var(--ibm-gray-100);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding: 4rem 5%;
+            scroll-snap-align: start;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Slide 1 - Opening */
+        .slide-1 {
+            background: linear-gradient(135deg, var(--ibm-blue) 0%, var(--ibm-blue-70) 100%);
+            color: var(--ibm-white);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide-1 .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .slide-1 .logo-container img {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .slide-1 .logo-container .ibm-logo {
+            height: 50px;
+        }
+
+        .slide-1 .logo-container .bb-logo {
+            height: 60px;
+        }
+
+        .slide-1 h1 {
+            font-size: 4rem;
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+            max-width: 900px;
+        }
+
+        .slide-1 .subtitle {
+            font-size: 1.5rem;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        /* Slide 2 - Context */
+        .slide-2 {
+            background-color: var(--ibm-white);
+        }
+
+        .slide-2 h2 {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            color: var(--ibm-blue);
+        }
+
+        .context-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .context-card {
+            background-color: var(--ibm-gray-10);
+            padding: 2.5rem;
+            border-left: 4px solid var(--ibm-blue);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .context-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .context-card h3 {
+            font-size: 1.75rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            color: var(--ibm-blue);
+        }
+
+        .context-card p {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--ibm-gray-90);
+        }
+
+        /* Slide 3 - Discovery */
+        .slide-3 {
+            background-color: var(--ibm-gray-10);
+        }
+
+        .slide-3 h2 {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            color: var(--ibm-blue);
+        }
+
+        .discovery-content {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .discovery-image {
+            background-color: var(--ibm-white);
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .discovery-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .discovery-definition {
+            background: linear-gradient(135deg, var(--ibm-blue) 0%, var(--ibm-blue-60) 100%);
+            color: var(--ibm-white);
+            padding: 3rem;
+            border-radius: 8px;
+            font-size: 1.25rem;
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        .discovery-definition strong {
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        /* Slide 4 - Workshop Preparation */
+        .slide-4 {
+            background-color: var(--ibm-white);
+        }
+
+        .slide-4 h2 {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            color: var(--ibm-blue);
+        }
+
+        .workshop-section {
+            margin-bottom: 3rem;
+            padding: 2.5rem;
+            background-color: var(--ibm-gray-10);
+            border-radius: 8px;
+        }
+
+        .workshop-section h3 {
+            font-size: 1.75rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: var(--ibm-blue);
+        }
+
+        .workshop-section h4 {
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            color: var(--ibm-gray-70);
+        }
+
+        .workshop-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+            background-color: var(--ibm-white);
+        }
+
+        .workshop-table th,
+        .workshop-table td {
+            padding: 1rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid var(--ibm-gray-20);
+        }
+
+        .workshop-table th {
+            background-color: var(--ibm-blue);
+            color: var(--ibm-white);
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .workshop-table td {
+            font-size: 1rem;
+            color: var(--ibm-gray-90);
+        }
+
+        .workshop-table tr:hover {
+            background-color: var(--ibm-gray-10);
+        }
+
+        /* Slide 5 - Next Steps */
+        .slide-5 {
+            background: linear-gradient(135deg, var(--ibm-gray-100) 0%, var(--ibm-gray-90) 100%);
+            color: var(--ibm-white);
+        }
+
+        .slide-5 h2 {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            color: var(--ibm-white);
+        }
+
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+
+        .checklist li {
+            font-size: 1.5rem;
+            padding: 1.5rem 2rem;
+            margin-bottom: 1rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid var(--ibm-blue);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .checklist li:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: translateX(8px);
+        }
+
+        .checklist li::before {
+            content: '☐';
+            font-size: 2rem;
+            color: var(--ibm-blue);
+        }
+
+        /* Footer */
+        .footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem 5%;
+            background-color: rgba(0, 0, 0, 0.05);
+            font-size: 0.875rem;
+            color: var(--ibm-gray-70);
+            text-align: center;
+            border-top: 1px solid var(--ibm-gray-20);
+        }
+
+        .slide-1 .footer,
+        .slide-5 .footer {
+            background-color: rgba(0, 0, 0, 0.2);
+            color: rgba(255, 255, 255, 0.8);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Navigation dots */
+        .nav-dots {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--ibm-gray-50);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .nav-dot:hover {
+            background-color: var(--ibm-blue);
+            transform: scale(1.2);
+        }
+
+        .nav-dot.active {
+            background-color: var(--ibm-blue);
+            border-color: var(--ibm-blue);
+            transform: scale(1.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 3rem 4%;
+            }
+
+            .slide-1 h1 {
+                font-size: 2.5rem;
+            }
+
+            .slide-1 .subtitle {
+                font-size: 1.25rem;
+            }
+
+            .slide-2 h2,
+            .slide-3 h2,
+            .slide-4 h2,
+            .slide-5 h2 {
+                font-size: 2rem;
+            }
+
+            .context-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-dots {
+                display: none;
+            }
+
+            .workshop-table {
+                font-size: 0.875rem;
+            }
+
+            .workshop-table th,
+            .workshop-table td {
+                padding: 0.75rem 1rem;
+            }
+        }
+
+        /* Scroll container */
+        html {
+            scroll-snap-type: y proximity;
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-content > * {
+            animation: fadeInUp 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Dots -->
+    <div class="nav-dots">
+        <div class="nav-dot active" onclick="scrollToSlide(1)"></div>
+        <div class="nav-dot" onclick="scrollToSlide(2)"></div>
+        <div class="nav-dot" onclick="scrollToSlide(3)"></div>
+        <div class="nav-dot" onclick="scrollToSlide(4)"></div>
+        <div class="nav-dot" onclick="scrollToSlide(5)"></div>
+    </div>
+
+    <!-- Slide 1: Opening -->
+    <section class="slide slide-1" id="slide-1">
+        <div class="slide-content">
+            <div class="logo-container">
+                <img src="https://www.ibm.com/brand/experience-guides/developer/b1db1ae501d522a1a4b49613fe07c9f1/01_8-bar-positive.svg" alt="IBM Logo" class="ibm-logo">
+                <img src="logo_BB.png" alt="BBTS Logo" class="bb-logo">
+            </div>
+            <h1>Garagem BBTS e IBM: Modernização de Aplicação</h1>
+            <p class="subtitle">Alinhamento de agenda e próximos passos | Workshop Discovery</p>
+        </div>
+        <div class="footer">IBM Client Engineering | © 2026 IBM Corporation</div>
+    </section>
+
+    <!-- Slide 2: Context -->
+    <section class="slide slide-2" id="slide-2">
+        <div class="slide-content">
+            <h2>Contexto</h2>
+            <div class="context-grid">
+                <div class="context-card">
+                    <h3>Cenário</h3>
+                    <p>A BBTS presta serviço de modernização de aplicações para o Banco do Brasil. Esse processo é manual e exige muito tempo do desenvolvedor para a migração e para as conferências necessárias.</p>
+                </div>
+                <div class="context-card">
+                    <h3>Hipótese</h3>
+                    <p>É possível utilizar o IBM Bob como ferramenta de apoio ao desenvolvedor para otimizar o processo de modernização de aplicações.</p>
+                </div>
+                <div class="context-card">
+                    <h3>Caso de Uso</h3>
+                    <p>Uma das necessidades atuais é a migração de subrotinas do Natural para o Cobol. Para detalhar esse caso de uso, é necessário realizar um processo de Discovery.</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer">IBM Client Engineering | © 2026 IBM Corporation</div>
+    </section>
+
+    <!-- Slide 3: Discovery -->
+    <section class="slide slide-3" id="slide-3">
+        <div class="slide-content">
+            <h2>O que é um Discovery?</h2>
+            <div class="discovery-content">
+                <div class="discovery-image">
+                    <img src="Pilot-Method.png" alt="Pilot Engineering Method" style="width: 100%; height: auto; display: block;">
+                </div>
+                <div class="discovery-definition">
+                    <strong>Discovery</strong> é o conjunto de atividades que realizamos para aprofundar nosso conhecimento sobre um problema ou esclarecer dúvidas em processos mapeados. Essas atividades são realizadas na fase inicial do Pilot Engineering Method e coletam informações para definir o problema e o escopo de experimentação.
+                </div>
+            </div>
+        </div>
+        <div class="footer">IBM Client Engineering | © 2026 IBM Corporation</div>
+    </section>
+
+    <!-- Slide 4: Workshop Preparation -->
+    <section class="slide slide-4" id="slide-4">
+        <div class="slide-content">
+            <h2>Próximos Passos</h2>
+            
+            <div class="workshop-section">
+                <h3>Workshop Discovery Técnico</h3>
+                <h4>Objetivo: Esclarecer pontos do problema e aprofundar o conhecimento sobre os processos e sistemas envolvidos no processo atual.</h4>
+                <table class="workshop-table">
+                    <thead>
+                        <tr>
+                            <th>O que precisamos</th>
+                            <th>Descrição</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Data e hora (4 horas)</td>
+                            <td>Proposta de datas: 21/05 - quinta-feira, das 9:30h às 12:30h</td>
+                        </tr>
+                        <tr>
+                            <td>Formato e Local</td>
+                            <td>Online - Teams</td>
+                        </tr>
+                        <tr>
+                            <td>Lista de Participantes</td>
+                            <td>(a) Quem vai criar/manter a solução (b) Quem vai usar a solução final (c) Quem conhece sistemas que precisam interagir com a solução futura ou que vão ser substituídos por ela</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="workshop-section">
+                <h3>Workshop de Solutioning e Proposta de Solução</h3>
+                <h4>Objetivo: IBM apresenta proposta da arquitetura de solução e levantaremos em conjunto os requisitos, premissas, riscos entre outros artefatos técnicos.</h4>
+                <table class="workshop-table">
+                    <thead>
+                        <tr>
+                            <th>O que precisamos</th>
+                            <th>Descrição</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Data (1 hora)</td>
+                            <td>Proposta de datas: 29/05 - sexta-feira, das 10h às 12h</td>
+                        </tr>
+                        <tr>
+                            <td>Formato e Local</td>
+                            <td>Online - Teams</td>
+                        </tr>
+                        <tr>
+                            <td>Lista de Participantes</td>
+                            <td>(a) Quem vai criar/manter a solução (b) Quem vai usar a solução final (c) Quem conhece sistemas que precisam interagir com a solução futura ou que vão ser substituídos por ela (d) Sponsor que aprova o escopo e o seguimento da experimentação</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="workshop-section">
+                <h3>Definição do Escopo de Experimentação</h3>
+                <h4>Objetivo: IBM apresenta uma proposta de experimentação, baseando-se em todos os artefatos gerados nos workshops anteriores.</h4>
+                <table class="workshop-table">
+                    <thead>
+                        <tr>
+                            <th>O que precisamos</th>
+                            <th>Definir dias e horários para as sessões técnicas de experimentação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Formato e Local</td>
+                            <td>Online - Teams</td>
+                        </tr>
+                        <tr>
+                            <td>Lista de Participantes</td>
+                            <td>Alex Bonifácio</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="footer">IBM Client Engineering | © 2026 IBM Corporation</div>
+    </section>
+
+    <!-- Slide 5: Next Steps Checklist -->
+    <section class="slide slide-5" id="slide-5">
+        <div class="slide-content">
+            <h2>Próximos Passos Antes do Início da Cocriação</h2>
+            <ul class="checklist">
+                <li>Alinhamento do cronograma</li>
+                <li>Liberação dos acessos necessários</li>
+                <li>Acesso aos dados necessários</li>
+            </ul>
+        </div>
+        <div class="footer">IBM Client Engineering | © 2026 IBM Corporation</div>
+    </section>
+
+    <script>
+        // Navigation functionality
+        function scrollToSlide(slideNumber) {
+            const slide = document.getElementById(`slide-${slideNumber}`);
+            slide.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Update active dot on scroll
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.nav-dot');
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const slideIndex = Array.from(slides).indexOf(entry.target);
+                    dots.forEach((dot, index) => {
+                        dot.classList.toggle('active', index === slideIndex);
+                    });
+                }
+            });
+        }, observerOptions);
+
+        slides.forEach(slide => observer.observe(slide));
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const currentSlide = document.querySelector('.slide:hover') || slides[0];
+            const currentIndex = Array.from(slides).indexOf(currentSlide);
+            
+            if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+                e.preventDefault();
+                if (currentIndex < slides.length - 1) {
+                    scrollToSlide(currentIndex + 2);
+                }
+            } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                e.preventDefault();
+                if (currentIndex > 0) {
+                    scrollToSlide(currentIndex);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
